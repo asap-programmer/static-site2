@@ -22,8 +22,15 @@ jobs:
       - name: Mkdocs Build
         run: mkdocs build
 
-      - name: Check
-        run: git status
+      - name: Deploy 🚀
+        uses: asap-programmer/static-site@v4
+        with:
+          branch: test/v4
+          folder: .
+          clean: false
+          single-commit: true
+
+    
 
      
 
