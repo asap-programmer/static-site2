@@ -24,11 +24,6 @@ jobs:
       - name: Mkdocs Build
         run: mkdocs build
 
-      - name: Push new README.md
-        uses: asap-programmer/static-site2@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Deploy to Main
         run: |
           git config --global user.name 'GitHub Actions'
