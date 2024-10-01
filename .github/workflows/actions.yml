@@ -24,17 +24,14 @@ jobs:
       - name: Mkdocs Build
         run: mkdocs build
 
-      - name: Deploy to Main
+      - name: Install SSH key
         run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-          echo `${{ secrets.PERSONAL_ACCESS_TOKEN }}`
-          git remote add target https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/asap-programmer/static-site.git
-          git add .
-          git commit -m "Deploy to Main"
-          git push target main --force
-        env:
-          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      
+      - name: Deploy
+        run: rsync --archive --stats site/ ${{ secrets.REMOTE_DEST }}
 
     
 
