@@ -14,7 +14,7 @@ jobs:
       - name: Python Setup
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12'
+          python-version: 3.12
 
       - name: Mkdocs Setup
         run: pip install mkdocs
